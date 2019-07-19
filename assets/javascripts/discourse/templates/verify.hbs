@@ -2,12 +2,12 @@
 
 <form {{ action 'verify' phoneverify on='submit' }}>
   <label>
-    {{ input name='note' value=phoneverify }}
+    {{ input name='phone' value=phoneverify.phone }}
     <button type="button" class="btn btn-outline-success" {{ action 'sendVerifyCode' }}>{{ i18n 'verifycode.sendverifycode' }}</button>
   </label>
 
   <label>
-    {{ input name='code' value= }}
+    {{ input name='code' value=phoneverify.code }}
   </label>
 
   <button type='submit' class='btn btn-primary'>
