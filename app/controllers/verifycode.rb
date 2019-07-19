@@ -1,6 +1,8 @@
 require_dependency 'final_destination'
 
 class VerifycodeController < ApplicationController
+  def index
+  end
   def get
     phone = params[:phone]
     now = Date.today.to_time.to_i
