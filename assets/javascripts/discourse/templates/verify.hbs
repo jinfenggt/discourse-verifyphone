@@ -1,0 +1,16 @@
+<h1>{{ i18n 'notebook.title' }}</h1>
+
+<form {{ action 'verify' phoneverify on='submit' }}>
+  <label>
+    {{ input name='note' value=phoneverify }}
+    <button type="button" class="btn btn-outline-success" {{ action 'sendVerifyCode' }}>{{ i18n 'verifycode.sendverifycode' }}</button>
+  </label>
+
+  <label>
+    {{ input name='code' value= }}
+  </label>
+
+  <button type='submit' class='btn btn-primary'>
+    {{ i18n 'notebook.create_note.submit_label' }}
+  </button>
+</form>

@@ -1,0 +1,3 @@
+plugins:
+  verifycode_enabled:
+    default: false

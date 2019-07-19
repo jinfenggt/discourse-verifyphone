@@ -1,0 +1,7 @@
+en:
+  js:
+    verifycode:
+      title: 'Verify your phone number'
+
+      sendverifycode: 'Send Code'
+      enterverifycode: 'Enter verification code'
