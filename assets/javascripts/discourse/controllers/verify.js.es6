@@ -2,9 +2,13 @@ import { ajax } from "discourse/lib/ajax";
 
 import DiscourseURL from "discourse/lib/url";
 
+import User from "discourse/models/user";
+
+import {
+  default as computed
+} from "ember-addons/ember-computed-decorators";
+
 export default Ember.Controller.extend({
-  user: Ember.inject.controller(),
-  username: Ember.computed.alias("user.model.username_lower"),
 
   errorMessage: null,
   phoneverify: {
@@ -12,6 +16,11 @@ export default Ember.Controller.extend({
     code: ''
   },
   sendDisable: false,
+
+  @computed()
+  username() {
+    return User.currentProp("username").toLowerCase();
+  },
 
   init() {
     this._super();
