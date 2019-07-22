@@ -2,8 +2,6 @@ import { ajax } from "discourse/lib/ajax";
 
 import DiscourseURL from "discourse/lib/url";
 
-import { default as computed } from "ember-addons/ember-computed-decorators";
-
 export default Ember.Controller.extend({
   errorMessage: null,
   phoneverify: {
@@ -12,10 +10,7 @@ export default Ember.Controller.extend({
   },
   sendDisable: false,
 
-  @computed("username")
-  username_lower(username) {
-    return username.toLowerCase();
-  },
+  username: Ember.computed.alias("user.model.username_lower"),
 
   init() {
     this._super();
@@ -41,7 +36,7 @@ export default Ember.Controller.extend({
       phone = phone.trim()
       code = code.trim()
       if (!phone || !code) return
-      ajax('/verifycode/' + this.username_lower, { type: 'POST', data: { phone: phone, code: code } }).then(result => {
+      ajax('/verifycode/' + this.username, { type: 'POST', data: { phone: phone, code: code } }).then(result => {
         if (result.success) {
           DiscourseURL.redirectTo("/");
         } else {
