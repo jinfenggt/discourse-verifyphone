@@ -53,6 +53,9 @@ class VerifycodeController < ApplicationController
     secret = SiteSetting.agora_sms_appsecret
     sign = Digest::MD5.hexdigest('app_key=' + appKey + '&timestamp=' + timestamp + secret)
     uri = URI.parse("https://dove.agora.io/api/messages/sms?app_key=" + appKey + "&timestamp=" + timestamp + "&sign=" + sign)
+    Rails.logger.info uri.request_uri
+    Rails.logger.info uri.host
+    Rails.logger.info uri.port
     data = {
       uuid: SecureRandom.uuid,
       content: 'RTCDeveloper 论坛手机验证码：' + code,
@@ -64,5 +67,6 @@ class VerifycodeController < ApplicationController
     request = Net::HTTP::Post.new(uri.request_uri, header)
     request.body = data.to_json
     http.request(request)
+    Rails.logger.info "send code end"
   end
 end
