@@ -24,14 +24,8 @@ class VerifycodeController < ApplicationController
 
     phone = params[:phone]
     code = params[:code]
-    Rails.logger.info 'Called verifycode#verify'
-    Rails.logger.info 'verifyphone: ' + phone
-    Rails.logger.info 'verify code: ' + code
     phonecode = PluginStore.get('verifycode', phone)
     if phonecode
-      Rails.logger.info 'store verify code: ' + phonecode[:code]
-      Rails.logger.info 'store verify phone: ' + phonecode[:phone]
-      Rails.logger.info phonecode[:expiredAt]
       now = Date.today.to_time.to_i
       if now > phonecode[:expiredAt]
         render json: { message: 'Verify Code has expired' }
@@ -50,9 +44,6 @@ class VerifycodeController < ApplicationController
     secret = SiteSetting.agora_sms_appsecret
     sign = Digest::MD5.hexdigest('app_key=' + appKey + '&timestamp=' + timestamp + secret)
     uri = URI.parse("https://dove.agora.io/api/messages/sms?app_key=" + appKey + "&timestamp=" + timestamp + "&sign=" + sign)
-    Rails.logger.info uri.request_uri
-    Rails.logger.info uri.host
-    Rails.logger.info uri.port
     data = {
       uuid: SecureRandom.uuid,
       content: 'RTCDeveloper 论坛手机验证码：' + code,
