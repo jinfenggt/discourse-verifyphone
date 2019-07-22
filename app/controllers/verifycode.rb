@@ -59,6 +59,7 @@ class VerifycodeController < ApplicationController
       toUser: phone,
       provide: 'cn'
     }
+    header = {'Content-Type': 'application/json'}
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.request_uri, header)
     request.body = data.to_json

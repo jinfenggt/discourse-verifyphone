@@ -3,14 +3,15 @@ import { ajax } from "discourse/lib/ajax";
 import DiscourseURL from "discourse/lib/url";
 
 export default Ember.Controller.extend({
+  user: Ember.inject.controller(),
+  username: Ember.computed.alias("user.model.username_lower"),
+
   errorMessage: null,
   phoneverify: {
     phone: '',
     code: ''
   },
   sendDisable: false,
-
-  username: Ember.computed.alias("user.model.username_lower"),
 
   init() {
     this._super();
@@ -26,7 +27,7 @@ export default Ember.Controller.extend({
         if (e.jqXHR && e.jqXHR.status === 429) {
           this.set("errorMessage", I18n.t("user.second_factor.rate_limit"));
         } else {
-          this.set("errorMessage", I18n.t("System error"));
+          this.set("errorMessage", "System error");
         }
       })
     },
@@ -48,7 +49,7 @@ export default Ember.Controller.extend({
         if (e.jqXHR && e.jqXHR.status === 429) {
           this.set("errorMessage", I18n.t("user.second_factor.rate_limit"));
         } else {
-          this.set("errorMessage", I18n.t("System error"));
+          this.set("errorMessage", "System Error");
         }
       })
     }
