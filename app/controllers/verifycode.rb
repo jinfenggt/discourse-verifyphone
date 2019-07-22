@@ -63,9 +63,9 @@ class VerifycodeController < ApplicationController
       provide: 'cn'
     }
     header = {'Content-Type': 'application/json'}
-    response = http.post(uri, data, header)
-    # http = Net::HTTP.new(uri.host, uri.port)
+    http = Net::HTTP.new(uri.host, uri.port)
     # request = Net::HTTP::Post.new(uri.request_uri, header)
+    response = http.post(uri, data, header)
     # request.body = data.to_json
     # http.request(request)
     Rails.logger.info response.body
