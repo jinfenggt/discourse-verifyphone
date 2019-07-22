@@ -1,6 +1,6 @@
 require_dependency 'final_destination'
 
-require 'net/http'
+require 'net/https'
 require 'securerandom'
 require 'uri'
 require 'json'
@@ -64,6 +64,8 @@ class VerifycodeController < ApplicationController
     }
     header = {'Content-Type': 'application/json'}
     http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     # request = Net::HTTP::Post.new(uri.request_uri, header)
     response = http.post(uri, data.to_json, header)
     # request.body = data.to_json
