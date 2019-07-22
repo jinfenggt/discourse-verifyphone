@@ -31,8 +31,9 @@ class VerifycodeController < ApplicationController
     if phonecode
       Rails.logger.info 'store verify code: ' + phonecode[:code]
       Rails.logger.info 'store verify phone: ' + phonecode[:phone]
+      Rails.logger.info phonecode[:expiredAt]
       now = Date.today.to_time.to_i
-      if now < phonecode[:expiredAt]
+      if now > phonecode[:expiredAt]
         render json: { message: 'Verify Code has expired' }
       else
         updater = UserUpdater.new(current_user, user)
