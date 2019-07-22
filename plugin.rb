@@ -10,6 +10,6 @@ after_initialize do
   Discourse::Application.routes.append do
     get '/verify' => 'verifycode#index'
     get '/verifycode' => 'verifycode#get'
-    post '/verifycode' => 'verifycode#verify'
+    post '/verifycode/:username' => 'verifycode#verify'
   end
 end
