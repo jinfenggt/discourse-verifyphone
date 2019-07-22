@@ -8,7 +8,7 @@ class VerifycodeController < ApplicationController
     now = Date.today.to_time.to_i
     Rails.logger.info 'Called verifycode#get'
     Rails.logger.info 'verifyphone: ' + phone
-    Rails.logger.info 'verifynow: ' + now
+    Rails.logger.info now
     phonecode = {
       phone => phone,
       code => '11111',
@@ -24,6 +24,8 @@ class VerifycodeController < ApplicationController
     Rails.logger.info 'verifyphone: ' + phone
     Rails.logger.info 'verify code: ' + code
     phonecode = PluginStore.get('verifycode', phone)
+    Rails.logger.info 'store verify code: ' + phonecode.code
+    Rails.logger.info 'store verify phone: ' + phonecode.phone
     now = Date.today.to_time.to_i
     unless phonecode && phonecode[:code] == code && now < phonecode.expiredAt
       render json: success_json
