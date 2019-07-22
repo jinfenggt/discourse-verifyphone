@@ -5,3 +5,4 @@ en:
 
       sendverifycode: 'Send Code'
       enterverifycode: 'Enter verification code'
+      submit_label: 'Verify'

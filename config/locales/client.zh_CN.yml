@@ -1,0 +1,8 @@
+en:
+  js:
+    verifycode:
+      title: '验证手机号码'
+
+      sendverifycode: '发送验证码'
+      enterverifycode: '输入手机验证码'
+      submit_label: '验证'
