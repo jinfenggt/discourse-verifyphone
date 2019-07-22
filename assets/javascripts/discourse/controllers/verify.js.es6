@@ -4,6 +4,11 @@ import DiscourseURL from "discourse/lib/url";
 
 export default Ember.Controller.extend({
   errorMessage: null,
+  phoneverify: {
+    phone: '',
+    code: ''
+  },
+  sendDisable: false,
 
   init() {
     this._super();
