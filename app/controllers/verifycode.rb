@@ -12,11 +12,7 @@ class VerifycodeController < ApplicationController
   def get
     phone = params[:phone]
     now = Date.today.to_time.to_i
-    Rails.logger.info 'Called verifycode#get'
-    Rails.logger.info 'verifyphone: ' + phone
-    Rails.logger.info now
     code = rand(999999).to_s
-    Rails.logger.info code
     sendCode(phone, code)
     phonecode = { phone: phone, code: code, expiredAt: now + 600 }
     PluginStore.set('verifycode', phone, phonecode)
@@ -33,10 +29,10 @@ class VerifycodeController < ApplicationController
     Rails.logger.info 'verify code: ' + code
     phonecode = PluginStore.get('verifycode', phone)
     if phonecode
-      Rails.logger.info 'store verify code: ' + phonecode.code
-      Rails.logger.info 'store verify phone: ' + phonecode.phone
+      Rails.logger.info 'store verify code: ' + phonecode[:code]
+      Rails.logger.info 'store verify phone: ' + phonecode[:phone]
       now = Date.today.to_time.to_i
-      if now < phonecode.expiredAt
+      if now < phonecode[:expiredAt]
         render json: { message: 'Verify Code has expired' }
       else
         updater = UserUpdater.new(current_user, user)

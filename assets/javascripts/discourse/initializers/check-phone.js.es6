@@ -4,7 +4,7 @@ export default {
     const user = container.lookup('current-user:main');
     console.log(user)
     if (window.location.href.substr(0, 7) == '/verify') return
-    if (user && !user.admin && user.custom_fields && !user.custom_fields.phone) {
+    if (user && user.custom_fields && !user.custom_fields.phone) {
       window.location = '/verify'
     }
   }
