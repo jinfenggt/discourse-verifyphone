@@ -1,3 +1,5 @@
 en:
   site_settings:
     verifycode_enabled: 'Enable Phone Verify'
+    agora_sms_appkey: 'Agora SMS App Key'
+    agora_sms_appsecret: 'Agora SMS App Secret'

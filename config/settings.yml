@@ -1,3 +1,5 @@
 plugins:
   verifycode_enabled:
     default: false
+  agora_sms_appkey: ''
+  agora_sms_appsecret: ''
