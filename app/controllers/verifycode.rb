@@ -46,7 +46,7 @@ class VerifycodeController < ApplicationController
     uri = URI.parse("https://dove.agora.io/api/messages/sms?app_key=" + appKey + "&timestamp=" + timestamp + "&sign=" + sign)
     data = {
       uuid: SecureRandom.uuid,
-      content: 'RTCDeveloper 论坛手机验证码：' + code,
+      content: '您的手机验证码为：'+code+'，验证码10分钟内有效',
       toUser: phone,
       provide: 'cn'
     }
