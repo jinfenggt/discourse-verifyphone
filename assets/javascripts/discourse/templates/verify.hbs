@@ -1,13 +1,19 @@
 <h1>{{ i18n 'verifycode.title' }}</h1>
-
+<h3>应监管要求，论坛即日起需要进行实名认证。请您验证手机号。</h3>
 <form {{ action 'verify' phoneverify on='submit' }}>
   {{#if errorMessage}}
     <div class='alert alert-error'>{{errorMessage}}</div>
     <br/>
   {{/if}}
+  {{#if infoMessage}}
+    <div class='alert alert-success'>{{infoMessage}}</div>
+    <br/>
+  {{/if}}
   <div class="input">
     {{ input name='phone' value=phoneverify.phone }}&nbsp;
-    {{d-button type='button' action=(action "sendVerifyCode") class='btn-primary' disable=sendDisable label='verifycode.sendverifycode'}}
+    <button class="btn btn-primary" {{ action 'sendVerifyCode' }} disabled={{sendDisable}}>
+      {{ btnText }}
+    </button>
   </div>
 
   <div class="input">

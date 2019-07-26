@@ -11,11 +11,15 @@ import {
 export default Ember.Controller.extend({
 
   errorMessage: null,
+  infoMessage: null,
   phoneverify: {
     phone: '',
     code: ''
   },
   sendDisable: false,
+  timer: null,
+  count: 30,
+  btnText: '发送验证码',
 
   @computed()
   username() {
@@ -26,18 +30,44 @@ export default Ember.Controller.extend({
     this._super();
   },
   actions: {
+    counter() {
+      if (this.count > 0) {
+        this.count --;
+        // this.set('count', this.count - 1);
+        this.set('btnText', this.count)
+      } else {
+        this.set('sendDisable', false);
+        this.set('btnText', '发送验证码')
+      }
+      this.timer = setTimeout(() => {
+        this.counter()
+      }, 1000)
+    }
+    timerInterval() {
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+      this.timer = setTimeout(() => {
+        this.counter()
+      }, 1000)
+    },
     sendVerifyCode() {
       let phone = this.phoneverify && this.phoneverify.phone ? this.phoneverify.phone : ''
       phone = phone.trim()
       if (!phone) return
+      // this.sendDisable = true
+      this.set('sendDisable', true)
       ajax('/verifycode?phone=' + phone, { type: 'GET' }).then(() => {
-        this.sendDisable = true
+        this.set("infoMessage", "发送验证码成功");
+        this.set("errorMessage", null);
       }).catch(e => {
         if (e.jqXHR && e.jqXHR.status === 429) {
           this.set("errorMessage", I18n.t("user.second_factor.rate_limit"));
         } else {
           this.set("errorMessage", "System error");
         }
+        this.set("infoMessage", null);
       })
     },
     verify() {
