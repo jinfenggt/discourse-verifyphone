@@ -94,10 +94,11 @@ export default Ember.Controller.extend({
           }
         }
       }).catch(e => {
+        // console.log(e.message)
         if (e.jqXHR && e.jqXHR.status === 429) {
           this.set("errorMessage", I18n.t("user.second_factor.rate_limit"));
         } else {
-          this.set("errorMessage", "System Error");
+          this.set("errorMessage", e.message);
         }
       })
     }
