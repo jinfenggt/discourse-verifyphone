@@ -61,7 +61,9 @@ export default Ember.Controller.extend({
       ajax('/verifycode?phone=' + phone, { type: 'GET' }).then(() => {
         this.set("infoMessage", "发送验证码成功");
         this.set("errorMessage", null);
+        this.timerInterval();
       }).catch(e => {
+        this.set('sendDisable', false)
         if (e.jqXHR && e.jqXHR.status === 429) {
           this.set("errorMessage", I18n.t("user.second_factor.rate_limit"));
         } else {
