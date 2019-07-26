@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
       this.timer = setTimeout(() => {
         this.counter()
       }, 1000)
-    }
+    },
     timerInterval() {
       if (this.timer) {
         clearTimeout(this.timer)
