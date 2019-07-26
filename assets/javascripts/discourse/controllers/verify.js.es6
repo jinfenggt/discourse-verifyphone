@@ -25,34 +25,34 @@ export default Ember.Controller.extend({
   username() {
     return User.currentProp("username").toLowerCase();
   },
-
+  counter() {
+    if (this.count > 0) {
+      this.count --;
+      // this.set('count', this.count - 1);
+      this.set('btnText', this.count)
+    } else {
+      this.set('sendDisable', false);
+      this.set('btnText', '发送验证码')
+    }
+    this.timer = setTimeout(() => {
+      counter()
+    }, 1000)
+  },
+  timerInterval() {
+    if (this.timer) {
+      clearTimeout(this.timer)
+      this.timer = null
+    }
+    this.set('btnText', this.count)
+    this.timer = setTimeout(() => {
+      this.counter()
+    }, 1000)
+  },
   init() {
     this._super();
   },
   actions: {
-    counter() {
-      if (this.count > 0) {
-        this.count --;
-        // this.set('count', this.count - 1);
-        this.set('btnText', this.count)
-      } else {
-        this.set('sendDisable', false);
-        this.set('btnText', '发送验证码')
-      }
-      this.timer = setTimeout(() => {
-        this.counter()
-      }, 1000)
-    },
-    timerInterval() {
-      if (this.timer) {
-        clearTimeout(this.timer)
-        this.timer = null
-      }
-      this.set('btnText', this.count)
-      this.timer = setTimeout(() => {
-        this.counter()
-      }, 1000)
-    },
+
     sendVerifyCode() {
       let phone = this.phoneverify && this.phoneverify.phone ? this.phoneverify.phone : ''
       phone = phone.trim()
