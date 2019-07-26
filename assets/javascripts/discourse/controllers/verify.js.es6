@@ -48,6 +48,7 @@ export default Ember.Controller.extend({
         clearTimeout(this.timer)
         this.timer = null
       }
+      this.set('btnText', this.count)
       this.timer = setTimeout(() => {
         this.counter()
       }, 1000)
@@ -63,6 +64,7 @@ export default Ember.Controller.extend({
         this.set("errorMessage", null);
         this.timerInterval();
       }).catch(e => {
+        console.log(e)
         this.set('sendDisable', false)
         if (e.jqXHR && e.jqXHR.status === 429) {
           this.set("errorMessage", I18n.t("user.second_factor.rate_limit"));
