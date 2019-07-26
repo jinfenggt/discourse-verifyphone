@@ -26,16 +26,21 @@ export default Ember.Controller.extend({
     return User.currentProp("username").toLowerCase();
   },
   counter() {
-    if (this.count > 0) {
-      this.count --;
-      // this.set('count', this.count - 1);
-      this.set('btnText', this.count)
-    } else {
+    if (this.count <= 0) {
       this.set('sendDisable', false);
       this.set('btnText', '发送验证码')
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null;
+      }
+      return
+    }
+    if (this.count > 0) {
+      this.count --;
+      this.set('btnText', this.count)
     }
     this.timer = setTimeout(() => {
-      counter()
+      this.counter()
     }, 1000)
   },
   timerInterval() {
