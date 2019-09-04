@@ -30,9 +30,13 @@ class VerifycodeController < ApplicationController
       if now > phonecode[:expiredAt]
         render json: { message: 'Verify Code has expired' }
       else
-        updater = UserUpdater.new(current_user, user)
-        updater.update({ custom_fields: { phone: phone } })
-        render json: success_json
+        if phonecode[:code] != code
+          render json: { message: 'Verify Code Error' }
+        else
+          updater = UserUpdater.new(current_user, user)
+          updater.update({ custom_fields: { phone: phone } })
+          render json: success_json
+        end
       end
     else
       render json: { message: 'Send Verify Code to Verify Phone' }
